@@ -134,7 +134,6 @@ export default function OmnitrixBot() {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        className="glass-bright"
                         style={{
                             position: "fixed",
                             bottom: 100,
@@ -145,9 +144,10 @@ export default function OmnitrixBot() {
                             display: "flex",
                             flexDirection: "column",
                             overflow: "hidden",
-                            boxShadow: "0 20px 80px rgba(0,0,0,0.6), 0 0 40px rgba(57,255,20,0.04)",
-                            border: "1px solid rgba(57,255,20,0.1)",
+                            boxShadow: "0 20px 80px rgba(0,0,0,0.7), 0 0 40px rgba(57,255,20,0.04)",
+                            border: "1px solid rgba(57,255,20,0.12)",
                             borderRadius: 24,
+                            background: "linear-gradient(180deg, #0a0f0a 0%, #060806 100%)",
                         }}
                         initial={{ opacity: 0, y: 20, scale: 0.92 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -158,7 +158,7 @@ export default function OmnitrixBot() {
                         <div style={{
                             padding: "16px 20px",
                             borderBottom: "1px solid rgba(57,255,20,0.06)",
-                            background: "linear-gradient(90deg, rgba(57,255,20,0.04), transparent)",
+                            background: "linear-gradient(90deg, rgba(57,255,20,0.06), rgba(57,255,20,0.01))",
                             flexShrink: 0,
                         }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -191,6 +191,7 @@ export default function OmnitrixBot() {
                             display: "flex",
                             flexDirection: "column",
                             gap: 12,
+                            background: "rgba(5,5,5,0.5)",
                         }}>
                             {messages.map((msg, i) => (
                                 <motion.div
@@ -305,7 +306,7 @@ export default function OmnitrixBot() {
                                     padding: "12px 16px",
                                     borderRadius: 14,
                                     border: "1px solid rgba(57,255,20,0.1)",
-                                    background: "rgba(5,5,5,0.6)",
+                                    background: "rgba(8,8,8,0.9)",
                                     color: "rgba(255,255,255,0.8)",
                                     fontFamily: "'Space Grotesk', sans-serif",
                                     fontSize: "0.82rem",
