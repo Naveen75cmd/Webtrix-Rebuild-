@@ -37,6 +37,7 @@ export default function Breadcrumbs() {
 
     return (
         <motion.div
+            className="breadcrumbs-container"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             style={{

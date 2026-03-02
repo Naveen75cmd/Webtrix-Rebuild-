@@ -2,16 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Terminal, ChevronRight, Power, Clock, Ban, Globe, Users, Laptop, Target, AlertTriangle, Package } from "lucide-react";
 import { rules } from "../data/eventData";
+
 const ICON_MAP = {
-    1: Power,
-    2: Clock,
-    3: Ban,
-    4: Globe,
-    5: Users,
-    6: Laptop,
-    7: Target,
-    8: AlertTriangle,
-    9: Package,
+    1: Power, 2: Clock, 3: Ban, 4: Globe, 5: Users, 6: Laptop, 7: Target, 8: AlertTriangle, 9: Package,
 };
 
 function TypingRule({ rule, index, isVisible }) {
@@ -32,7 +25,7 @@ function TypingRule({ rule, index, isVisible }) {
                     setDone(true);
                     clearInterval(interval);
                 }
-            }, 14);
+            }, 12);
             return () => clearInterval(interval);
         }, delay);
         return () => clearTimeout(timeout);
@@ -47,8 +40,8 @@ function TypingRule({ rule, index, isVisible }) {
                 display: "flex",
                 alignItems: "flex-start",
                 gap: 14,
-                padding: "14px 20px",
-                borderRadius: 12,
+                padding: "12px 20px",
+                borderRadius: 10,
                 transition: "all 0.3s ease",
                 borderLeft: "2px solid transparent",
             }}
@@ -65,7 +58,7 @@ function TypingRule({ rule, index, isVisible }) {
             <span style={{
                 color: "rgba(57,255,20,0.2)",
                 fontFamily: "'JetBrains Mono', monospace",
-                fontSize: "0.8rem",
+                fontSize: "0.78rem",
                 marginTop: 3,
                 userSelect: "none",
                 minWidth: "2.5ch",
@@ -74,16 +67,16 @@ function TypingRule({ rule, index, isVisible }) {
                 {String(index + 1).padStart(2, "0")}
             </span>
 
-            {/* Emoji / Icon */}
-            <span style={{ marginTop: 2, flexShrink: 0, display: "flex", alignItems: "center" }}>
-                <Icon size={16} color="#39FF14" strokeWidth={2} style={{ filter: "drop-shadow(0 0 5px rgba(57,255,20,0.6))" }} />
+            {/* Icon */}
+            <span style={{ marginTop: 3, flexShrink: 0, display: "flex", alignItems: "center" }}>
+                <Icon size={15} color="#39FF14" strokeWidth={2} style={{ filter: "drop-shadow(0 0 4px rgba(57,255,20,0.5))" }} />
             </span>
 
             {/* Text */}
             <span style={{
-                color: done ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.85)",
+                color: done ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.85)",
                 fontFamily: "'JetBrains Mono', monospace",
-                fontSize: "0.95rem",
+                fontSize: "0.88rem",
                 lineHeight: 1.7,
                 transition: "color 0.3s",
             }}>
@@ -92,8 +85,7 @@ function TypingRule({ rule, index, isVisible }) {
                     <motion.span
                         style={{
                             display: "inline-block",
-                            width: 7,
-                            height: 15,
+                            width: 7, height: 15,
                             background: "#39FF14",
                             marginLeft: 2,
                             verticalAlign: "middle",
@@ -114,12 +106,7 @@ export default function RulesMatrix() {
 
     useEffect(() => {
         const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsVisible(true);
-                    observer.disconnect();
-                }
-            },
+            ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } },
             { threshold: 0.15 }
         );
         if (ref.current) observer.observe(ref.current);
@@ -137,35 +124,6 @@ export default function RulesMatrix() {
                 overflow: "hidden",
             }}
         >
-            {/* Vertical Glowing Progress Bar */}
-            <motion.div
-                style={{
-                    position: "absolute",
-                    right: 24,
-                    top: "15%",
-                    bottom: "15%",
-                    width: 4,
-                    borderRadius: 4,
-                    background: "rgba(57,255,20,0.1)",
-                    border: "1px solid rgba(57,255,20,0.2)",
-                    boxShadow: "0 0 10px rgba(57,255,20,0.1)",
-                    overflow: "hidden",
-                }}
-            >
-                <motion.div
-                    style={{
-                        width: "100%",
-                        background: "linear-gradient(180deg, transparent, #39FF14, #39FF14)",
-                        boxShadow: "0 0 15px #39FF14",
-                        borderRadius: 4,
-                        originY: 0,
-                    }}
-                    initial={{ scaleY: 0 }}
-                    whileInView={{ scaleY: 1 }}
-                    viewport={{ margin: "-100px" }}
-                    transition={{ duration: 2, ease: "easeOut", delay: 0.5 }}
-                />
-            </motion.div>
             {/* Section header */}
             <motion.div
                 style={{ textAlign: "center", marginBottom: 56, maxWidth: 720, marginLeft: "auto", marginRight: "auto" }}
@@ -176,7 +134,7 @@ export default function RulesMatrix() {
             >
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginBottom: 20 }}>
                     <div style={{ height: "1px", width: 50, background: "linear-gradient(to right, transparent, rgba(57,255,20,0.4))" }} />
-                    <span style={{ color: "rgba(57,255,20,0.45)", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase" }}>
+                    <span style={{ color: "rgba(57,255,20,0.45)", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.35em", textTransform: "uppercase" }}>
                         Operational Parameters
                     </span>
                     <div style={{ height: "1px", width: 50, background: "linear-gradient(to left, transparent, rgba(57,255,20,0.4))" }} />
@@ -188,14 +146,14 @@ export default function RulesMatrix() {
 
             {/* Terminal */}
             <motion.div
-                className="glass-bright"
                 style={{
-                    maxWidth: 800,
+                    maxWidth: 820,
                     margin: "0 auto",
                     overflow: "hidden",
-                    border: "1px solid rgba(57,255,20,0.1)",
+                    border: "1.5px solid rgba(57,255,20,0.15)",
                     borderRadius: 20,
                     boxShadow: "0 8px 60px rgba(0,0,0,0.4), 0 0 30px rgba(57,255,20,0.04)",
+                    background: "linear-gradient(135deg, rgba(0,77,26,0.08) 0%, rgba(5,5,5,0.85) 100%)",
                 }}
                 initial={{ opacity: 0, y: 30, scale: 0.97 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -212,19 +170,19 @@ export default function RulesMatrix() {
                     background: "linear-gradient(90deg, rgba(57,255,20,0.04), transparent)",
                 }}>
                     <div style={{ display: "flex", gap: 7 }}>
-                        <div style={{ width: 11, height: 11, borderRadius: "50%", background: "rgba(255,95,87,0.7)" }} />
-                        <div style={{ width: 11, height: 11, borderRadius: "50%", background: "rgba(255,189,46,0.7)" }} />
-                        <div style={{ width: 11, height: 11, borderRadius: "50%", background: "rgba(57,255,20,0.7)" }} />
+                        <div style={{ width: 11, height: 11, borderRadius: "50%", background: "rgba(255,95,87,0.8)" }} />
+                        <div style={{ width: 11, height: 11, borderRadius: "50%", background: "rgba(255,189,46,0.8)" }} />
+                        <div style={{ width: 11, height: 11, borderRadius: "50%", background: "rgba(57,255,20,0.8)" }} />
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: 8, marginLeft: 12 }}>
                         <Terminal size={13} color="rgba(57,255,20,0.5)" />
-                        <span style={{ color: "rgba(57,255,20,0.4)", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.82rem" }}>
+                        <span style={{ color: "rgba(57,255,20,0.4)", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.78rem" }}>
                             omnitrix
                         </span>
                     </div>
                     <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 4 }}>
                         <ChevronRight size={12} color="rgba(57,255,20,0.3)" />
-                        <span style={{ color: "rgba(57,255,20,0.3)", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.75rem" }}>
+                        <span style={{ color: "rgba(57,255,20,0.3)", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.72rem" }}>
                             cat /rules/matrix.conf
                         </span>
                     </div>

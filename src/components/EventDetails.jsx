@@ -23,8 +23,7 @@ function DetailCard({ card }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ type: "spring", stiffness: 80, damping: 14, delay: card.delay }}
-            whileHover={{ y: -8, transition: { duration: 0.3 } }}
-            className=""
+            whileHover={{ y: -8, boxShadow: "0 0 30px rgba(57,255,20,0.2)", transition: { duration: 0.3 } }}
             style={{
                 padding: "32px 24px",
                 display: "flex",
@@ -36,49 +35,31 @@ function DetailCard({ card }) {
                 position: "relative",
                 overflow: "hidden",
                 borderRadius: 20,
-                background: "linear-gradient(135deg, rgba(57,255,20,0.06) 0%, rgba(5,5,5,0.8) 100%)",
-                border: "1.5px solid rgba(57,255,20,0.4)",
-                boxShadow: "0 0 20px rgba(57,255,20,0.15), inset 0 0 30px rgba(57,255,20,0.05)",
-                backdropFilter: "blur(16px)",
+                background: "linear-gradient(135deg, rgba(57,255,20,0.04) 0%, rgba(5,5,5,0.9) 100%)",
+                border: "1.5px solid rgba(57,255,20,0.35)",
+                boxShadow: "0 0 20px rgba(57,255,20,0.08), inset 0 0 40px rgba(57,255,20,0.03)",
             }}
         >
-            {/* Hover shimmer */}
-            <motion.div
-                style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(135deg, transparent 40%, rgba(57,255,20,0.1) 50%, transparent 60%)",
-                    backgroundSize: "200% 200%",
-                    opacity: 0,
-                    pointerEvents: "none",
-                }}
-                whileHover={{ opacity: 1, filter: "blur(2px)" }}
-            />
-
             {/* Icon */}
             <motion.div
                 style={{
-                    width: 60,
-                    height: 60,
+                    width: 56,
+                    height: 56,
                     borderRadius: 16,
-                    border: "1px solid rgba(57,255,20,0.15)",
+                    border: "1px solid rgba(57,255,20,0.2)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    background: "linear-gradient(135deg, rgba(57,255,20,0.08) 0%, transparent 100%)",
-                    position: "relative",
+                    background: "linear-gradient(135deg, rgba(57,255,20,0.1) 0%, transparent 100%)",
                 }}
-                whileHover={{
-                    boxShadow: "0 0 20px rgba(57,255,20,0.2)",
-                    borderColor: "rgba(57,255,20,0.35)",
-                }}
+                whileHover={{ boxShadow: "0 0 20px rgba(57,255,20,0.3)", borderColor: "rgba(57,255,20,0.4)" }}
             >
                 <Icon color="#39FF14" size={24} strokeWidth={1.5} />
             </motion.div>
 
             {/* Label */}
             <span style={{
-                color: "rgba(57,255,20,0.55)",
+                color: "rgba(57,255,20,0.6)",
                 fontFamily: "'Orbitron', sans-serif",
                 fontSize: "0.72rem",
                 letterSpacing: "0.3em",
@@ -91,13 +72,13 @@ function DetailCard({ card }) {
             {card.isMultiline ? (
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                     {card.value.map((line) => (
-                        <span key={line} style={{ color: "rgba(255,255,255,0.85)", fontFamily: "'Inter', 'Space Grotesk', sans-serif", fontSize: "1rem", fontWeight: 400 }}>
+                        <span key={line} style={{ color: "rgba(255,255,255,0.85)", fontFamily: "'Inter', 'Space Grotesk', sans-serif", fontSize: "0.95rem" }}>
                             {line}
                         </span>
                     ))}
                 </div>
             ) : (
-                <span style={{ color: "rgba(255,255,255,0.9)", fontFamily: "'Inter', 'Space Grotesk', sans-serif", fontSize: "1.15rem", fontWeight: 500 }}>
+                <span style={{ color: "rgba(255,255,255,0.9)", fontFamily: "'Inter', 'Space Grotesk', sans-serif", fontSize: "1.1rem", fontWeight: 500 }}>
                     {card.value}
                 </span>
             )}
@@ -112,7 +93,7 @@ export default function EventDetails() {
             style={{
                 position: "relative",
                 padding: "120px 24px",
-                background: "linear-gradient(180deg, #050505 0%, rgba(2,18,4,0.6) 50%, #050505 100%)",
+                background: "linear-gradient(180deg, #050505 0%, rgba(2,18,4,0.5) 50%, #050505 100%)",
                 overflow: "hidden",
             }}
         >
@@ -132,7 +113,7 @@ export default function EventDetails() {
 
             {/* Section header */}
             <motion.div
-                style={{ textAlign: "center", marginBottom: 72, maxWidth: 720, marginLeft: "auto", marginRight: "auto", position: "relative" }}
+                style={{ textAlign: "center", marginBottom: 72, maxWidth: 700, marginLeft: "auto", marginRight: "auto", position: "relative" }}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
@@ -145,35 +126,23 @@ export default function EventDetails() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.2 }}
                 >
-                    <motion.div
-                        style={{ height: "1px", width: 50, background: "linear-gradient(to right, transparent, rgba(57,255,20,0.4))" }}
-                        initial={{ scaleX: 0 }}
-                        whileInView={{ scaleX: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.3, duration: 0.6 }}
-                    />
-                    <span style={{ color: "rgba(57,255,20,0.45)", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase" }}>
+                    <div style={{ height: "1px", width: 50, background: "linear-gradient(to right, transparent, rgba(57,255,20,0.4))" }} />
+                    <span style={{ color: "rgba(57,255,20,0.45)", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.35em", textTransform: "uppercase" }}>
                         Mission Briefing
                     </span>
-                    <motion.div
-                        style={{ height: "1px", width: 50, background: "linear-gradient(to left, transparent, rgba(57,255,20,0.4))" }}
-                        initial={{ scaleX: 0 }}
-                        whileInView={{ scaleX: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.3, duration: 0.6 }}
-                    />
+                    <div style={{ height: "1px", width: 50, background: "linear-gradient(to left, transparent, rgba(57,255,20,0.4))" }} />
                 </motion.div>
 
                 <h2 className="text-glow-sm" style={{ color: "#39FF14", fontFamily: "'Orbitron', sans-serif", fontSize: "clamp(2rem, 5vw, 3.2rem)", fontWeight: 700, marginBottom: 20, letterSpacing: "0.05em" }}>
                     EVENT DETAILS
                 </h2>
 
-                <p style={{ color: "rgba(255,255,255,0.35)", fontFamily: "'Inter', 'Space Grotesk', sans-serif", fontSize: "1.05rem", lineHeight: 1.8, maxWidth: 560, marginLeft: "auto", marginRight: "auto" }}>
+                <p style={{ color: "rgba(255,255,255,0.35)", fontFamily: "'Inter', 'Space Grotesk', sans-serif", fontSize: "1rem", lineHeight: 1.8, maxWidth: 560, marginLeft: "auto", marginRight: "auto" }}>
                     {eventInfo.description}
                 </p>
             </motion.div>
 
-            {/* Cards */}
+            {/* Cards grid */}
             <div style={{
                 maxWidth: 1100,
                 margin: "0 auto",

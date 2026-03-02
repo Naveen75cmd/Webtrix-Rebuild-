@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Zap, ArrowRight } from "lucide-react";
 
 export default function Registration() {
     return (
@@ -12,7 +11,21 @@ export default function Registration() {
                 background: "#050505",
             }}
         >
-            {/* Dark grid pattern at the bottom edge */}
+            {/* Faint radial glow behind text */}
+            <div style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 500,
+                height: 500,
+                borderRadius: "50%",
+                background: "radial-gradient(circle, rgba(57,255,20,0.06) 0%, transparent 60%)",
+                filter: "blur(60px)",
+                pointerEvents: "none",
+            }} />
+
+            {/* Bottom grid fade */}
             <div style={{
                 position: "absolute",
                 bottom: 0,
@@ -20,33 +33,14 @@ export default function Registration() {
                 right: 0,
                 height: "40%",
                 backgroundSize: "40px 40px",
-                backgroundImage: "linear-gradient(to right, rgba(57, 255, 20, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(57, 255, 20, 0.03) 1px, transparent 1px)",
+                backgroundImage: "linear-gradient(to right, rgba(57,255,20,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(57,255,20,0.03) 1px, transparent 1px)",
                 maskImage: "linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 100%)",
                 WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 100%)",
-                pointerEvents: "none"
+                pointerEvents: "none",
             }} />
-            {/* Energy field background  */}
-            <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-                {/* Center glow */}
-                <motion.div
-                    style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: 500,
-                        height: 500,
-                        borderRadius: "50%",
-                        background: "radial-gradient(circle, rgba(57,255,20,0.06) 0%, transparent 60%)",
-                        filter: "blur(60px)",
-                    }}
-                    animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                />
-                {/* Horizontal accent lines */}
-                <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "1px", background: "linear-gradient(90deg, transparent, rgba(57,255,20,0.12), transparent)" }} />
-                <div style={{ position: "absolute", bottom: 0, left: 0, width: "100%", height: "1px", background: "linear-gradient(90deg, transparent, rgba(57,255,20,0.12), transparent)" }} />
-            </div>
+
+            {/* Accent lines */}
+            <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "1px", background: "linear-gradient(90deg, transparent, rgba(57,255,20,0.1), transparent)" }} />
 
             <motion.div
                 style={{
@@ -105,7 +99,7 @@ export default function Registration() {
                 <p style={{
                     color: "rgba(255,255,255,0.3)",
                     fontFamily: "'Inter', 'Space Grotesk', sans-serif",
-                    fontSize: "1.05rem",
+                    fontSize: "1rem",
                     maxWidth: 460,
                     margin: "0 auto 48px",
                     lineHeight: 1.8,
@@ -140,7 +134,6 @@ export default function Registration() {
                         boxShadow: "0 0 40px rgba(57,255,20,0.25), 0 0 80px rgba(57,255,20,0.08)",
                         borderColor: "rgba(57,255,20,0.6)",
                         background: "linear-gradient(135deg, rgba(57,255,20,0.15) 0%, rgba(57,255,20,0.05) 100%)",
-                        gap: 18,
                     }}
                     whileTap={{ scale: 0.97 }}
                     transition={{ duration: 0.3 }}
@@ -151,14 +144,14 @@ export default function Registration() {
                         animate={{ top: ["-5%", "105%"] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                     />
-                    <span style={{ fontSize: "1.2rem", marginRight: 4 }}>⚡</span>
+                    <span style={{ fontSize: "1.2rem" }}>⚡</span>
                     <span>REGISTER NOW</span>
-                    <span style={{ fontSize: "1.2rem", marginLeft: 4 }}>→</span>
+                    <span style={{ fontSize: "1.2rem" }}>→</span>
                 </motion.a>
 
                 {/* Footer note */}
                 <motion.p
-                    style={{ color: "rgba(255,255,255,0.12)", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.68rem", letterSpacing: "0.12em", marginTop: 32 }}
+                    style={{ color: "rgba(255,255,255,0.1)", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.68rem", letterSpacing: "0.12em", marginTop: 32 }}
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
