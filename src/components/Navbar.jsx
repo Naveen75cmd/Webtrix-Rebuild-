@@ -9,10 +9,20 @@ const NAV_LINKS = [
     { id: "registration", label: "Register" },
 ];
 
+const MOBILE_BREAKPOINT = 768;
+
 export default function Navbar() {
     const [active, setActive] = useState("hero");
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < MOBILE_BREAKPOINT);
+
+    /* Track resize for mobile detection */
+    useEffect(() => {
+        const onResize = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+    }, []);
 
     /* Track scroll for bg */
     useEffect(() => {
@@ -107,64 +117,12 @@ export default function Navbar() {
                     </span>
                 </a>
 
-                {/* Desktop links */}
-                <div
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 8,
-                    }}
-                    className="hidden md:flex"
-                >
-                    {NAV_LINKS.map((link) => (
-                        <a
-                            key={link.id}
-                            href={`#${link.id}`}
-                            style={linkStyle(link.id)}
-                            onClick={() => setActive(link.id)}
-                        >
-                            {link.label}
-                        </a>
-                    ))}
-                </div>
-
-                {/* Mobile hamburger */}
-                <button
-                    onClick={() => setMobileOpen(!mobileOpen)}
-                    className="md:hidden"
-                    style={{
-                        background: "none",
-                        border: "none",
-                        cursor: "pointer",
-                        color: "#39FF14",
-                    }}
-                >
-                    {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
-            </motion.nav>
-
-            {/* Mobile drawer */}
-            <AnimatePresence>
-                {mobileOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, x: "100%" }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: "100%" }}
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="md:hidden"
+                {/* Desktop links — only rendered on desktop */}
+                {!isMobile && (
+                    <div
                         style={{
-                            position: "fixed",
-                            top: 0,
-                            right: 0,
-                            bottom: 0,
-                            width: "min(280px, 75vw)",
-                            zIndex: 60,
-                            background: "rgba(5,5,5,0.95)",
-                            backdropFilter: "blur(24px)",
-                            borderLeft: "1px solid rgba(57,255,20,0.08)",
                             display: "flex",
-                            flexDirection: "column",
-                            padding: "80px 32px 40px",
+                            alignItems: "center",
                             gap: 8,
                         }}
                     >
@@ -172,10 +130,88 @@ export default function Navbar() {
                             <a
                                 key={link.id}
                                 href={`#${link.id}`}
+                                style={linkStyle(link.id)}
+                                onClick={() => setActive(link.id)}
+                            >
+                                {link.label}
+                            </a>
+                        ))}
+                    </div>
+                )}
+
+                {/* Mobile hamburger — only rendered on mobile */}
+                {isMobile && (
+                    <button
+                        onClick={() => setMobileOpen(!mobileOpen)}
+                        style={{
+                            background: "none",
+                            border: "none",
+                            cursor: "pointer",
+                            color: "#39FF14",
+                            padding: 8,
+                        }}
+                        aria-label="Toggle menu"
+                    >
+                        {mobileOpen ? <X size={26} /> : <Menu size={26} />}
+                    </button>
+                )}
+            </motion.nav>
+
+            {/* Mobile drawer */}
+            <AnimatePresence>
+                {mobileOpen && isMobile && (
+                    <motion.div
+                        initial={{ opacity: 0, x: "100%" }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: "100%" }}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        style={{
+                            position: "fixed",
+                            top: 0,
+                            right: 0,
+                            bottom: 0,
+                            width: "min(280px, 75vw)",
+                            zIndex: 60,
+                            background: "rgba(5,5,5,0.97)",
+                            backdropFilter: "blur(24px)",
+                            WebkitBackdropFilter: "blur(24px)",
+                            borderLeft: "1px solid rgba(57,255,20,0.12)",
+                            display: "flex",
+                            flexDirection: "column",
+                            padding: "100px 32px 40px",
+                            gap: 12,
+                        }}
+                    >
+                        {/* Close button inside drawer */}
+                        <button
+                            onClick={() => setMobileOpen(false)}
+                            style={{
+                                position: "absolute",
+                                top: 20,
+                                right: 20,
+                                background: "none",
+                                border: "none",
+                                cursor: "pointer",
+                                color: "#39FF14",
+                                padding: 8,
+                            }}
+                            aria-label="Close menu"
+                        >
+                            <X size={24} />
+                        </button>
+
+                        {NAV_LINKS.map((link, i) => (
+                            <motion.a
+                                key={link.id}
+                                href={`#${link.id}`}
+                                initial={{ opacity: 0, x: 30 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: i * 0.08, duration: 0.3 }}
                                 style={{
                                     ...linkStyle(link.id),
-                                    fontSize: "1rem",
-                                    padding: "12px 20px",
+                                    fontSize: "1.1rem",
+                                    padding: "14px 24px",
+                                    borderRadius: 14,
                                 }}
                                 onClick={() => {
                                     setActive(link.id);
@@ -183,20 +219,26 @@ export default function Navbar() {
                                 }}
                             >
                                 {link.label}
-                            </a>
+                            </motion.a>
                         ))}
+
+                        {/* Decorative footer */}
+                        <div style={{ marginTop: "auto", paddingTop: 24, borderTop: "1px solid rgba(57,255,20,0.06)" }}>
+                            <p style={{ color: "rgba(57,255,20,0.15)", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em" }}>
+                                // OMNITRIX NAVIGATION v3.0
+                            </p>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
 
             {/* Backdrop */}
             <AnimatePresence>
-                {mobileOpen && (
+                {mobileOpen && isMobile && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="md:hidden"
                         style={{
                             position: "fixed",
                             inset: 0,

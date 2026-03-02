@@ -42,14 +42,23 @@ export default function Hero() {
         const img = imagesRef.current[index];
         if (!canvas || !ctx || !img || !img.complete) return;
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const dpr = window.devicePixelRatio || 1;
+        const w = window.innerWidth;
+        const h = window.innerHeight;
 
-        // Cover fill
-        const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
-        const x = (canvas.width - img.width * scale) / 2;
-        const y = (canvas.height - img.height * scale) / 2;
-        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.scale(dpr, dpr);
+
+        // Cover fill — crops landscape images to fit portrait viewports
+        const scale = Math.max(w / img.width, h / img.height);
+        const drawW = img.width * scale;
+        const drawH = img.height * scale;
+        const x = (w - drawW) / 2;
+        const y = (h - drawH) / 2;
+        ctx.drawImage(img, x, y, drawW, drawH);
     };
 
     /* ── Scroll handler ── */
