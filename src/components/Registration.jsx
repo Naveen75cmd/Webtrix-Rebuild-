@@ -7,11 +7,24 @@ export default function Registration() {
             id="registration"
             style={{
                 position: "relative",
-                padding: "140px 24px",
+                padding: "160px 24px 200px",
                 overflow: "hidden",
-                background: "linear-gradient(180deg, #050505 0%, rgba(2,18,4,0.5) 40%, #050505 100%)",
+                background: "#050505",
             }}
         >
+            {/* Dark grid pattern at the bottom edge */}
+            <div style={{
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: "40%",
+                backgroundSize: "40px 40px",
+                backgroundImage: "linear-gradient(to right, rgba(57, 255, 20, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(57, 255, 20, 0.03) 1px, transparent 1px)",
+                maskImage: "linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 100%)",
+                pointerEvents: "none"
+            }} />
             {/* Energy field background  */}
             <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
                 {/* Center glow */}
@@ -138,9 +151,9 @@ export default function Registration() {
                         animate={{ top: ["-5%", "105%"] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                     />
-                    <Zap size={18} strokeWidth={2} />
+                    <span style={{ fontSize: "1.2rem", marginRight: 4 }}>⚡</span>
                     <span>REGISTER NOW</span>
-                    <ArrowRight size={16} strokeWidth={2} />
+                    <span style={{ fontSize: "1.2rem", marginLeft: 4 }}>→</span>
                 </motion.a>
 
                 {/* Footer note */}
@@ -151,7 +164,7 @@ export default function Registration() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.6 }}
                 >
-          // Only the strongest survive the rebuild
+                    // Only the strongest survive the rebuild
                 </motion.p>
             </motion.div>
         </section>

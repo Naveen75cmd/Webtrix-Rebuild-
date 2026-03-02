@@ -245,11 +245,11 @@ export default function OmnitrixBot() {
 
                         {/* ===== QUICK QUERIES ===== */}
                         <div style={{
-                            padding: "10px 14px 6px",
+                            padding: "10px 14px 8px",
                             borderTop: "1px solid rgba(57,255,20,0.04)",
-                            display: "flex",
-                            gap: 6,
-                            flexWrap: "wrap",
+                            display: "grid",
+                            gridTemplateColumns: "1fr 1fr",
+                            gap: 8,
                             flexShrink: 0,
                         }}>
                             {chatQueries.map((q) => (
@@ -323,8 +323,9 @@ export default function OmnitrixBot() {
                                 style={{
                                     width: 42,
                                     height: 42,
-                                    borderRadius: 12,
-                                    border: "1px solid rgba(57,255,20,0.2)",
+                                    borderRadius: "50%",
+                                    border: "1px solid rgba(57,255,20,0.25)",
+                                    boxShadow: inputText.trim() ? "0 0 15px rgba(57,255,20,0.2)" : "none",
                                     background: inputText.trim()
                                         ? "linear-gradient(135deg, rgba(57,255,20,0.2), rgba(57,255,20,0.08))"
                                         : "rgba(57,255,20,0.03)",

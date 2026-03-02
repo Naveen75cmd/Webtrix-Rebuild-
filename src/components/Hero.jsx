@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import logo from "../assets/logo.jpeg";
 
 /* ===== Particle Field ===== */
@@ -94,7 +95,7 @@ export default function Hero() {
     useEffect(() => {
         const img = new Image();
         img.src = logo;
-        img.onload = () => setTimeout(() => setLoading(false), 1800);
+        img.onload = () => setTimeout(() => setLoading(false), 800);
         img.onerror = () => setLoading(false);
     }, []);
 
@@ -105,36 +106,72 @@ export default function Hero() {
                 position: "relative",
                 width: "100%",
                 minHeight: "100vh",
+                overflow: "hidden",
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                overflow: "hidden",
-                background: "radial-gradient(ellipse at 50% 40%, rgba(0,77,26,0.08) 0%, #050505 60%)",
+                background: "radial-gradient(ellipse at 50% 50%, rgba(0,77,26,0.1) 0%, transparent 70%)",
             }}
         >
-            {/* Horizontal scan lines */}
-            <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 1 }}>
-                <motion.div
-                    style={{ position: "absolute", left: 0, width: "100%", height: "1px", background: "linear-gradient(90deg, transparent 0%, rgba(57,255,20,0.15) 50%, transparent 100%)" }}
-                    animate={{ top: ["-2%", "102%"] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                />
-                <motion.div
-                    style={{ position: "absolute", left: 0, width: "100%", height: "1px", background: "linear-gradient(90deg, transparent 0%, rgba(57,255,20,0.08) 50%, transparent 100%)" }}
-                    animate={{ top: ["102%", "-2%"] }}
-                    transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
-                />
-            </div>
-
             <AmbientOrbs />
             <ParticleField />
+
+            {/* HEADER (Top Left) */}
+            <motion.div
+                style={{
+                    position: "absolute",
+                    top: 100,
+                    left: "max(5vw, 24px)",
+                    zIndex: 20,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 16
+                }}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+            >
+                {/* Glowing Green Omnitrix Logo placeholder */}
+                <div style={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: "50%",
+                    border: "2px solid #39FF14",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "rgba(57,255,20,0.1)",
+                    boxShadow: "0 0 20px rgba(57,255,20,0.4), inset 0 0 10px rgba(57,255,20,0.2)"
+                }}>
+                    <div style={{ width: 30, height: 30, background: "#39FF14", clipPath: "polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)" }} />
+                </div>
+                <div>
+                    <h2 style={{
+                        color: "#39FF14",
+                        fontFamily: "'Orbitron', sans-serif",
+                        fontSize: "clamp(1.2rem, 2vw, 1.8rem)",
+                        letterSpacing: "0.15em",
+                        fontWeight: 700,
+                        textShadow: "0 0 15px rgba(57,255,20,0.5)"
+                    }}>
+                        TECHNICAL EVENTS
+                    </h2>
+                    <p style={{
+                        color: "rgba(255,255,255,0.7)",
+                        fontFamily: "'Space Grotesk', sans-serif",
+                        fontSize: "clamp(0.7rem, 1vw, 0.85rem)",
+                        letterSpacing: "0.08em",
+                        marginTop: 4
+                    }}>
+                        SHOWCASE YOUR SKILLS. THINK FAST. BUILD SMARTER.
+                    </p>
+                </div>
+            </motion.div>
 
             <AnimatePresence mode="wait">
                 {loading ? (
                     <motion.div
                         key="loader"
-                        style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 28, zIndex: 10 }}
+                        style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 28, zIndex: 10 }}
                         exit={{ opacity: 0, scale: 0.7, filter: "blur(10px)" }}
                         transition={{ duration: 0.6 }}
                     >
@@ -150,90 +187,110 @@ export default function Hero() {
                 ) : (
                     <motion.div
                         key="hero-content"
-                        style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 36, zIndex: 10, padding: "0 20px", textAlign: "center" }}
+                        style={{
+                            flex: 1,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            zIndex: 10,
+                            padding: "60px 20px",
+                            marginTop: 40 // offset for the header
+                        }}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8 }}
                     >
-                        {/* Logo with layered glow */}
-                        <motion.div
-                            style={{ position: "relative" }}
-                            initial={{ scale: 0.5, opacity: 0, y: 40 }}
-                            animate={{ scale: 1, opacity: 1, y: 0 }}
-                            transition={{ type: "spring", stiffness: 60, damping: 12, delay: 0.1 }}
-                        >
-                            {/* Outer glow halo */}
-                            <motion.div
-                                style={{
-                                    position: "absolute",
-                                    inset: -20,
-                                    borderRadius: 32,
-                                    background: "radial-gradient(circle, rgba(57,255,20,0.08) 0%, transparent 70%)",
-                                    filter: "blur(20px)",
-                                }}
-                                animate={{
-                                    opacity: [0.5, 1, 0.5],
-                                    scale: [0.95, 1.05, 0.95],
-                                }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                            />
+                        <div style={{ display: "flex", alignItems: "center", gap: "clamp(20px, 4vw, 60px)" }}>
 
-                            <motion.img
-                                src={logo}
-                                alt="Webtrix Rebuild"
+                            {/* Left Nav Button */}
+                            <motion.button
+                                whileHover={{ scale: 1.1, boxShadow: "0 0 25px rgba(57,255,20,0.5)" }}
+                                whileTap={{ scale: 0.95 }}
+                                style={{
+                                    width: 60, height: 60, borderRadius: "50%", flexShrink: 0,
+                                    border: "2px solid #39FF14", background: "rgba(5,5,5,0.6)",
+                                    display: "flex", alignItems: "center", justifyContent: "center",
+                                    cursor: "pointer", boxShadow: "0 0 15px rgba(57,255,20,0.2)",
+                                    backdropFilter: "blur(10px)", color: "#39FF14"
+                                }}
+                            >
+                                <ChevronLeft size={32} strokeWidth={2} />
+                            </motion.button>
+
+                            {/* Central Card */}
+                            <motion.div
+                                initial={{ scale: 0.9, opacity: 0, y: 40 }}
+                                animate={{ scale: 1, opacity: 1, y: 0 }}
+                                transition={{ type: "spring", stiffness: 60, damping: 15, delay: 0.4 }}
                                 style={{
                                     position: "relative",
-                                    width: "clamp(280px, 42vw, 440px)",
-                                    height: "auto",
-                                    borderRadius: 24,
-                                    border: "1.5px solid rgba(57,255,20,0.2)",
-                                    display: "block",
+                                    padding: 2,
+                                    borderRadius: 32,
+                                    background: "linear-gradient(135deg, rgba(57,255,20,0.8), rgba(0,77,26,0.5))",
+                                    boxShadow: "0 0 60px rgba(57,255,20,0.25), 0 0 120px rgba(57,255,20,0.1)",
                                 }}
-                                animate={{
-                                    boxShadow: [
-                                        "0 4px 40px rgba(57,255,20,0.12), 0 0 0 1px rgba(57,255,20,0.05)",
-                                        "0 4px 60px rgba(57,255,20,0.25), 0 0 0 1px rgba(57,255,20,0.1)",
-                                        "0 4px 40px rgba(57,255,20,0.12), 0 0 0 1px rgba(57,255,20,0.05)",
-                                    ],
-                                }}
-                                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                            />
-                        </motion.div>
+                            >
+                                {/* The glowing circuit board inner background */}
+                                <div style={{
+                                    background: "radial-gradient(ellipse at center, rgba(57,255,20,0.15) 0%, #050505 100%)",
+                                    borderRadius: 30,
+                                    overflow: "hidden",
+                                    position: "relative",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: 16,
+                                    border: "1px solid rgba(57,255,20,0.2)",
+                                    width: "clamp(300px, 50vw, 800px)",
+                                }}>
+                                    {/* Energy beam effect */}
+                                    <motion.div
+                                        style={{
+                                            position: "absolute",
+                                            width: "10%",
+                                            height: "150%",
+                                            background: "linear-gradient(90deg, transparent, rgba(57,255,20,0.4), transparent)",
+                                            filter: "blur(20px)",
+                                            transform: "rotate(25deg)",
+                                        }}
+                                        animate={{ x: ["-500%", "500%"] }}
+                                        transition={{ duration: 5, ease: "linear", repeat: Infinity }}
+                                    />
+                                    <img
+                                        src={logo}
+                                        alt="Webtrix Rebuild"
+                                        style={{
+                                            position: "relative",
+                                            width: "100%",
+                                            height: "auto",
+                                            objectFit: "cover",
+                                            borderRadius: 20,
+                                            boxShadow: "0 20px 50px rgba(0,0,0,0.8)",
+                                            zIndex: 2,
+                                        }}
+                                    />
+                                </div>
+                            </motion.div>
 
-                        {/* Tagline */}
-                        <motion.div
-                            style={{ display: "flex", alignItems: "center", gap: 20 }}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.8, duration: 0.8 }}
-                        >
-                            <motion.div
-                                style={{ width: 60, height: "1px", background: "linear-gradient(to right, transparent, rgba(57,255,20,0.5))" }}
-                                initial={{ scaleX: 0 }}
-                                animate={{ scaleX: 1 }}
-                                transition={{ delay: 1, duration: 0.8 }}
-                            />
-                            <p style={{
-                                color: "rgba(57,255,20,0.6)",
-                                fontFamily: "'Orbitron', sans-serif",
-                                fontSize: "0.9rem",
-                                letterSpacing: "0.5em",
-                                textTransform: "uppercase",
-                                fontWeight: 500,
-                            }}>
-                                A Technical Event
-                            </p>
-                            <motion.div
-                                style={{ width: 60, height: "1px", background: "linear-gradient(to left, transparent, rgba(57,255,20,0.5))" }}
-                                initial={{ scaleX: 0 }}
-                                animate={{ scaleX: 1 }}
-                                transition={{ delay: 1, duration: 0.8 }}
-                            />
-                        </motion.div>
+                            {/* Right Nav Button */}
+                            <motion.button
+                                whileHover={{ scale: 1.1, boxShadow: "0 0 25px rgba(57,255,20,0.5)" }}
+                                whileTap={{ scale: 0.95 }}
+                                style={{
+                                    width: 60, height: 60, borderRadius: "50%", flexShrink: 0,
+                                    border: "2px solid #39FF14", background: "rgba(5,5,5,0.6)",
+                                    display: "flex", alignItems: "center", justifyContent: "center",
+                                    cursor: "pointer", boxShadow: "0 0 15px rgba(57,255,20,0.2)",
+                                    backdropFilter: "blur(10px)", color: "#39FF14"
+                                }}
+                            >
+                                <ChevronRight size={32} strokeWidth={2} />
+                            </motion.button>
+                        </div>
 
                         {/* Scroll CTA */}
                         <motion.div
-                            style={{ position: "absolute", bottom: 40, display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}
+                            style={{ position: "absolute", bottom: 40, display: "flex", flexDirection: "column", alignItems: "center", gap: 10, left: "50%", transform: "translateX(-50%)" }}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1.5 }}

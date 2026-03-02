@@ -90,12 +90,15 @@ body {
     border-radius: 20px;
 }
 
-/* ===== GRID BG ===== */
-.bg-grid {
+/* ===== CIRCUIT BG ===== */
+.bg-circuit {
+    background-color: #050505;
     background-image:
-        linear-gradient(rgba(57, 255, 20, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(57, 255, 20, 0.025) 1px, transparent 1px);
-    background-size: 48px 48px;
+        radial-gradient(rgba(57, 255, 20, 0.08) 1px, transparent 1px),
+        linear-gradient(rgba(57, 255, 20, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(57, 255, 20, 0.02) 1px, transparent 1px);
+    background-size: 60px 60px, 30px 30px, 30px 30px;
+    background-position: 0 0, 0 0, 0 0;
 }
 
 /* ===== LOADER ===== */

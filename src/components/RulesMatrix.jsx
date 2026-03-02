@@ -1,9 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Terminal, ChevronRight } from "lucide-react";
+import { Terminal, ChevronRight, Power, Clock, Ban, Globe, Users, Laptop, Target, AlertTriangle, Package } from "lucide-react";
 import { rules } from "../data/eventData";
+const ICON_MAP = {
+    1: Power,
+    2: Clock,
+    3: Ban,
+    4: Globe,
+    5: Users,
+    6: Laptop,
+    7: Target,
+    8: AlertTriangle,
+    9: Package,
+};
 
 function TypingRule({ rule, index, isVisible }) {
+    const Icon = ICON_MAP[rule.id] || Power;
     const [displayedText, setDisplayedText] = useState("");
     const [done, setDone] = useState(false);
 
@@ -62,8 +74,10 @@ function TypingRule({ rule, index, isVisible }) {
                 {String(index + 1).padStart(2, "0")}
             </span>
 
-            {/* Emoji */}
-            <span style={{ fontSize: "1.1rem", marginTop: 2, flexShrink: 0 }}>{rule.icon}</span>
+            {/* Emoji / Icon */}
+            <span style={{ marginTop: 2, flexShrink: 0, display: "flex", alignItems: "center" }}>
+                <Icon size={16} color="#39FF14" strokeWidth={2} style={{ filter: "drop-shadow(0 0 5px rgba(57,255,20,0.6))" }} />
+            </span>
 
             {/* Text */}
             <span style={{
@@ -123,6 +137,35 @@ export default function RulesMatrix() {
                 overflow: "hidden",
             }}
         >
+            {/* Vertical Glowing Progress Bar */}
+            <motion.div
+                style={{
+                    position: "absolute",
+                    right: 24,
+                    top: "15%",
+                    bottom: "15%",
+                    width: 4,
+                    borderRadius: 4,
+                    background: "rgba(57,255,20,0.1)",
+                    border: "1px solid rgba(57,255,20,0.2)",
+                    boxShadow: "0 0 10px rgba(57,255,20,0.1)",
+                    overflow: "hidden",
+                }}
+            >
+                <motion.div
+                    style={{
+                        width: "100%",
+                        background: "linear-gradient(180deg, transparent, #39FF14, #39FF14)",
+                        boxShadow: "0 0 15px #39FF14",
+                        borderRadius: 4,
+                        originY: 0,
+                    }}
+                    initial={{ scaleY: 0 }}
+                    whileInView={{ scaleY: 1 }}
+                    viewport={{ margin: "-100px" }}
+                    transition={{ duration: 2, ease: "easeOut", delay: 0.5 }}
+                />
+            </motion.div>
             {/* Section header */}
             <motion.div
                 style={{ textAlign: "center", marginBottom: 56, maxWidth: 720, marginLeft: "auto", marginRight: "auto" }}

@@ -24,7 +24,7 @@ function DetailCard({ card }) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ type: "spring", stiffness: 80, damping: 14, delay: card.delay }}
             whileHover={{ y: -8, transition: { duration: 0.3 } }}
-            className="glass gradient-border"
+            className=""
             style={{
                 padding: "32px 24px",
                 display: "flex",
@@ -35,6 +35,11 @@ function DetailCard({ card }) {
                 cursor: "default",
                 position: "relative",
                 overflow: "hidden",
+                borderRadius: 20,
+                background: "linear-gradient(135deg, rgba(57,255,20,0.06) 0%, rgba(5,5,5,0.8) 100%)",
+                border: "1.5px solid rgba(57,255,20,0.4)",
+                boxShadow: "0 0 20px rgba(57,255,20,0.15), inset 0 0 30px rgba(57,255,20,0.05)",
+                backdropFilter: "blur(16px)",
             }}
         >
             {/* Hover shimmer */}
@@ -42,12 +47,12 @@ function DetailCard({ card }) {
                 style={{
                     position: "absolute",
                     inset: 0,
-                    background: "linear-gradient(135deg, transparent 40%, rgba(57,255,20,0.04) 50%, transparent 60%)",
+                    background: "linear-gradient(135deg, transparent 40%, rgba(57,255,20,0.1) 50%, transparent 60%)",
                     backgroundSize: "200% 200%",
                     opacity: 0,
                     pointerEvents: "none",
                 }}
-                whileHover={{ opacity: 1 }}
+                whileHover={{ opacity: 1, filter: "blur(2px)" }}
             />
 
             {/* Icon */}

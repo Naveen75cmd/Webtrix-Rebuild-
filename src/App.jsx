@@ -31,8 +31,8 @@ function InitScreen({ onInitialize }) {
     >
       {/* Subtle grid */}
       <div
-        className="bg-grid"
-        style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.5 }}
+        className="bg-circuit"
+        style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.3 }}
       />
 
       {/* Scan line */}
@@ -178,8 +178,8 @@ export default function App() {
     >
       {/* Grid overlay */}
       <div
-        className="bg-grid"
-        style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0 }}
+        className="bg-circuit"
+        style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0, opacity: 0.5 }}
       />
 
       {/* Initialization Gate */}

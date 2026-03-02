@@ -4,7 +4,7 @@ export const chatQueries = [
     {
         id: "rules",
         label: "Operational Rules",
-        icon: "📋",
+        icon: "📄",
         getResponse: () => ({
             title: "⚡ Operational Rules",
             items: rules.map((r) => `${r.icon} ${r.text}`),
